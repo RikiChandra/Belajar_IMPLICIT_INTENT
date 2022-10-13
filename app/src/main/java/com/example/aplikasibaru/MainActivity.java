@@ -1,6 +1,7 @@
 package com.example.aplikasibaru;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,6 +42,31 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Ada Kesalahan Saat Membuka Website !",
                     Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnLokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getLokasi = etLokasi.getText().toString();
+                Uri location = Uri.parse("geo:0,0?q=" +
+                        getLokasi);
+                Intent bukaLokasi = new
+                        Intent(Intent.ACTION_VIEW, location);
+                startActivity(bukaLokasi);
+            }
+        });
+
+        btnTeks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getTeks = etTeks.getText().toString();
+                String mimeType = "text/plain";
+                new ShareCompat.IntentBuilder(MainActivity.this)
+                        .setType(mimeType)
+                        .setChooserTitle("Bagikan Teks Ini")
+                        .setText(getTeks)
+                        .startChooser();
             }
         });
 
